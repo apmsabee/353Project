@@ -41,44 +41,12 @@
 /* RTOS header files */
 #include <FreeRTOS.h>
 #include <task.h>
-
-TaskHandle_t Task_Blink_LED1_Handle = NULL;
-
-/* ****************************************************************************
- * This Function initializes the hardware required to blink LED1 on the
- * MSP432 Launchpad
- * ***************************************************************************/
-void blink_led1_hw_init(void)
-{
-    // set direction as an output
-    P1->DIR |= BIT0;
-
-    // Turn off LED
-    P1->OUT &= ~BIT0;
-}
-
-/******************************************************************************
-* Tasked used to blink LED1 on MSP432 Launchpad
-******************************************************************************/
-void Task_Blink_LED1(void *pvParameters)
-{
-    int i;
-    while(1)
-    {
-        // turn on the LED
-        P1->OUT |= BIT0;
-
-        // Delay
-        for(i=0; i < 1000000; i++){};
-
-        // turn off the LED
-        P1->OUT &= ~BIT0;
-
-        // Delay
-        for(i=0; i < 1000000; i++){};
-    }
-}
-
+/* task header files */
+#include  <task_lcd.h>
+#include <task_accel.h>
+#include <task_ambient.h>
+#include <task_buzzer.h>
+#include <init.h>
 
 /*
  *  ======== main ========
@@ -86,17 +54,10 @@ void Task_Blink_LED1(void *pvParameters)
 int main(void)
 {
     WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     // stop watchdog timer
+    //initialize peripherals
+    init_board();
 
-    blink_led1_hw_init();
 
-    xTaskCreate
-    (   Task_Blink_LED1,
-        "LED1 Blink Task",
-        configMINIMAL_STACK_SIZE,
-        NULL,
-        1,
-        &Task_Blink_LED1_Handle
-    );
 
 
     /* Start the FreeRTOS scheduler */
