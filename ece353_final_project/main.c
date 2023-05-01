@@ -33,20 +33,7 @@
 /*
  *  ======== main_freertos.c ========
  */
-#include "msp.h"
-#include "msp432p401r.h"
-#include <stdint.h>
-#include <stdio.h>
-
-/* RTOS header files */
-#include <FreeRTOS.h>
-#include <task.h>
-/* task header files */
-#include  <task_lcd.h>
-#include <task_accel.h>
-#include <task_ambient.h>
-#include <task_buzzer.h>
-#include <init.h>
+#include <main.h>
 
 /*
  *  ======== main ========
@@ -57,8 +44,37 @@ int main(void)
     //initialize peripherals
     init_board();
 
+    xTaskCreate(
+            Task_LCD,
+            "Task_Console",
+            configMINIMAL_STACK_SIZE,
+            NULL,
+            1,
+            &Task_LCD_Handle);
 
+    xTaskCreate(
+            Task_Accelerometer,
+            "Task_Accelerometer",
+            configMINIMAL_STACK_SIZE,
+            NULL,
+            2,
+            &Task_Accel_Handle);
 
+    xTaskCreate(
+            Task_LightSensor,
+            "Task_LightSensor",
+            configMINIMAL_STACK_SIZE,
+            NULL,
+            3,
+            &Task_LightSensor_Handle);
+
+    xTaskCreate(
+            Task_Buzzer,
+            "Task_Buzzer",
+            configMINIMAL_STACK_SIZE,
+            NULL,
+            4,
+            &Task_LightSensor_Handle);
 
     /* Start the FreeRTOS scheduler */
     vTaskStartScheduler();

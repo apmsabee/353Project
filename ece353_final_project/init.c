@@ -53,4 +53,7 @@ void init_board(){
 //Initialize Ambient Light Sensor
     // Initialize OPT3001
     i2c_write_16(OPT3001_SLAVE_ADDRESS, CONFIG_REG, 0xC610);
+
+//Initialize Accelerometer
+    //I think doing this in window comparator mode would be easier - if it's tilted to the left, go left at a constant speed, same for tilted right. Not sure though
 }

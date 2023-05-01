@@ -6,8 +6,8 @@
  */
 
 #include "msp.h"
-#include "i2c.h"
 #include "msp432p401r.h"
+#include <main.h>
 
 #ifndef INIT_H_
 #define INIT_H_
