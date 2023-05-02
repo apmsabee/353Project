@@ -12,6 +12,7 @@
 #define TASK_AMBIENT_H_
 
 extern TaskHandle_t Task_LightSensor_Handle;
+extern volatile float lightValue;
 void Task_LightSensor(void *pvParameters);
 
 

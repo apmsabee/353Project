@@ -46,7 +46,7 @@ int main(void)
 
     xTaskCreate(
             Task_LCD,
-            "Task_Console",
+            "Task_LCD",
             configMINIMAL_STACK_SIZE,
             NULL,
             1,

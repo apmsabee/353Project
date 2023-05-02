@@ -7,13 +7,14 @@
 #include "task_ambient.h"
 #include "math.h"
 TaskHandle_t Task_LightSensor_Handle;
-
+volatile float lightValue = 0;
+static bool lightsOn = true;
 
 void Task_LightSensor(void *pvParameters){
-    float lux = 0.0;
     while(1){
-        lux = opt3001_read_lux(); //store the value of the ambient light sensor in lux
+        lightValue = opt3001_read_lux(); //store the value of the ambient light sensor in lux
         //need to use our lux reading to 1)change the color of the screen and 2) maybe the speed of the meteors?
+        //task notification if lux reading has changed enough to change the screen color?
     }
 }
 

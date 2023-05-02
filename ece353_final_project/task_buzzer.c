@@ -8,6 +8,8 @@
 TaskHandle_t Task_Buzzer_Handle;
 
 void Task_Buzzer(void *pvParameters){
+    while(1){
 
+    }
 }
 
