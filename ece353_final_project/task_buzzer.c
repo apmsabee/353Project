@@ -9,7 +9,7 @@ TaskHandle_t Task_Buzzer_Handle;
 
 void Task_Buzzer(void *pvParameters){
     while(1){
-
+        //just play the song, this task should only be called if the player dies
     }
 }
 

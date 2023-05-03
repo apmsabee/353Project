@@ -14,6 +14,6 @@
 extern TaskHandle_t Task_LightSensor_Handle;
 extern volatile float lightValue;
 void Task_LightSensor(void *pvParameters);
-
+float opt3001_read_lux(void);
 
 #endif /* TASK_AMBIENT_H_ */

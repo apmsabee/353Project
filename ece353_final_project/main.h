@@ -12,6 +12,7 @@
 #include "msp432p401r.h"
 #include <stdint.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 /* RTOS header files */
 #include <FreeRTOS.h>
@@ -23,5 +24,9 @@
 #include <task_buzzer.h>
 #include <init.h>
 #include <i2c.h>
+#include <lcd.h>
+#include <ECE353.h>
+//#include <meteor.h>
+//#include <person.h>
 
 #endif /* MAIN_H_ */

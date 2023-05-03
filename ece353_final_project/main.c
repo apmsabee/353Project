@@ -38,28 +38,30 @@
 /*
  *  ======== main ========
  */
+volatile uint32_t opt;
 int main(void)
 {
     WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     // stop watchdog timer
     //initialize peripherals
+    __enable_irq();
     init_board();
 
     xTaskCreate(
-            Task_LCD,
-            "Task_LCD",
+            Task_Accelerometer_Timer,
+            "Task_Accelerometer_Timer",
             configMINIMAL_STACK_SIZE,
             NULL,
             1,
-            &Task_LCD_Handle);
+            &Task_Accel_Timer_Handle);
 
     xTaskCreate(
-            Task_Accelerometer,
+            Task_Accelerometer_Bottom_Half,
             "Task_Accelerometer",
             configMINIMAL_STACK_SIZE,
             NULL,
             2,
             &Task_Accel_Handle);
-
+/*
     xTaskCreate(
             Task_LightSensor,
             "Task_LightSensor",
@@ -73,13 +75,16 @@ int main(void)
             "Task_Buzzer",
             configMINIMAL_STACK_SIZE,
             NULL,
-            4,
+            1,
             &Task_LightSensor_Handle);
+*/
 
     /* Start the FreeRTOS scheduler */
     vTaskStartScheduler();
 
-    while(1){};
+    while(1){
+
+    };
     return (0);
 }
 
