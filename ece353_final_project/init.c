@@ -16,13 +16,27 @@
 void init_board(){
 //initialize LCD
     Crystalfontz128x128_Init();
+    lcd_draw_rectangle(
+            64,
+            64,
+            132,
+            132,
+            LCD_COLOR_WHITE);
     lcd_draw_image(
             64,
-            64,
+            117,
             personWidthPixels,
             personHeightPixels,
             personBitmaps,
             LCD_COLOR_MAGENTA,
+            LCD_COLOR_WHITE);
+    lcd_draw_image(
+            64,
+            17,
+            meteorWidthPixels,
+            meteorHeightPixels,
+            meteorBitmaps,
+            LCD_COLOR_RED,
             LCD_COLOR_WHITE);
 /*Initialize Ambient Light Sensor*/
     // Initialize OPT3001

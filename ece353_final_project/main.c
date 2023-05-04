@@ -46,6 +46,7 @@ int main(void)
     __enable_irq();
     init_board();
 
+
     xTaskCreate(
             Task_Accelerometer_Timer,
             "Task_Accelerometer_Timer",
@@ -67,7 +68,7 @@ int main(void)
             "Task_LightSensor",
             configMINIMAL_STACK_SIZE,
             NULL,
-            2,
+            1,
             &Task_LightSensor_Handle);
 
     xTaskCreate(
