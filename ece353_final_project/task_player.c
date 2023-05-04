@@ -7,6 +7,8 @@
 
 #include "task_player.h"
 
+uint16_t player_color = LCD_COLOR_MAGENTA;
+uint16_t background_color = LCD_COLOR_WHITE;
 TaskHandle_t Task_Player_Handle;
 QueueHandle_t Queue_Player;
 
@@ -25,45 +27,37 @@ void Task_Move_Player(void *pvParameters) {
                personWidthPixels,
                personHeightPixels,
                personBitmaps,
-               LCD_COLOR_MAGENTA,
-               LCD_COLOR_WHITE);
+               player_color,
+               background_color);
         } else if (dir == ACCEL_LEFT) {
             if (player_x > personWidthPixels / 2)
                 player_x--;
             lcd_draw_image(
-                           player_x,
-                           117,
-                           personWidthPixels,
-                           personHeightPixels,
-                           personBitmaps,
-                           LCD_COLOR_MAGENTA,
-                           LCD_COLOR_WHITE);
+                player_x,
+                117,
+                personWidthPixels,
+                personHeightPixels,
+                personBitmaps,
+                player_color,
+                background_color);
 
         } else {
             if (player_x < LCD_HORIZONTAL_MAX - personWidthPixels)
-                player_x++ % LCD_HORIZONTAL_MAX;
+                player_x++;
             lcd_draw_image(
                player_x,
                117,
                personWidthPixels,
                personHeightPixels,
                personBitmaps,
-               LCD_COLOR_MAGENTA,
-               LCD_COLOR_WHITE);
+               player_color,
+               background_color);
         }
 
 
 
     }
 
-    lcd_draw_image(
-                player_x,
-                117,
-                personWidthPixels,
-                personHeightPixels,
-                personBitmaps,
-                LCD_COLOR_MAGENTA,
-                LCD_COLOR_WHITE);
 }
 
 
