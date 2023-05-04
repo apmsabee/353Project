@@ -13,12 +13,14 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include "ECE353.h"
+#include "timer32.h"
 
 /* RTOS header files */
 #include <FreeRTOS.h>
 #include <task.h>
+#include <semphr.h>
 /* task header files */
-#include <task_lcd.h>
 #include <task_accel.h>
 #include <task_ambient.h>
 #include <task_buzzer.h>
@@ -28,5 +30,7 @@
 #include <ECE353.h>
 #include <meteor.h>
 #include <person.h>
+#include "music.h"
+#include <task_player.h>
 
 #endif /* MAIN_H_ */

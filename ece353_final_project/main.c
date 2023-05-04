@@ -38,29 +38,31 @@
 /*
  *  ======== main ========
  */
-volatile uint32_t opt;
 int main(void)
 {
     WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     // stop watchdog timer
     //initialize peripherals
-    __enable_irq();
     init_board();
+    initializeTimer32();
 
+    __enable_irq();
+
+    Queue_Player = xQueueCreate(10,sizeof(uint32_t));
 
     xTaskCreate(
-            Task_Accelerometer_Timer,
-            "Task_Accelerometer_Timer",
-            configMINIMAL_STACK_SIZE,
-            NULL,
-            1,
-            &Task_Accel_Timer_Handle);
+                Task_Accelerometer_Timer,
+                "Task_Accelerometer",
+                configMINIMAL_STACK_SIZE,
+                NULL,
+                3,
+                &Task_Accel_Timer_Handle);
 
     xTaskCreate(
             Task_Accelerometer_Bottom_Half,
             "Task_Accelerometer",
             configMINIMAL_STACK_SIZE,
             NULL,
-            2,
+            3,
             &Task_Accel_Handle);
 /*
     xTaskCreate(
@@ -68,24 +70,31 @@ int main(void)
             "Task_LightSensor",
             configMINIMAL_STACK_SIZE,
             NULL,
-            1,
+            2,
             &Task_LightSensor_Handle);
-
+*/
     xTaskCreate(
             Task_Buzzer,
             "Task_Buzzer",
             configMINIMAL_STACK_SIZE,
             NULL,
             1,
-            &Task_LightSensor_Handle);
-*/
+            &Task_Buzzer_Handle);
+
+    xTaskCreate(
+            Task_Move_Player,
+            "Task Player",
+            configMINIMAL_STACK_SIZE,
+            NULL,
+            2,
+            &Task_Player_Handle);
+
+
 
     /* Start the FreeRTOS scheduler */
     vTaskStartScheduler();
 
-    while(1){
-
-    };
+    while(1){};
     return (0);
 }
 

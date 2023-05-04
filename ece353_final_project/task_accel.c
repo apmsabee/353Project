@@ -8,6 +8,8 @@
 TaskHandle_t Task_Accel_Handle;
 TaskHandle_t Task_Accel_Timer_Handle;
 
+extern QueueHandle_t Queue_Player;
+
 volatile uint32_t Accel_X_Direction = 0;
 volatile uint32_t Accel_Y_Direction = 0;
 
@@ -22,28 +24,29 @@ void Task_Accelerometer_Timer(void *pvParameters){
 }
 
 void Task_Accelerometer_Bottom_Half(void *pvParameters){
-    ACCEL_DIR_t dir;
-    ACCEL_DIR_t prev_dir = ACCEL_CENTER;
     uint32_t eventOccurred;
-
+    ACCEL_DIR_t dir;
+    //ACCEL_DIR_t prevDir = ACCEL_CENTER;
     while(1){
+        //wait for new measurements from accelerometer
         eventOccurred = ulTaskNotifyTake(true, portMAX_DELAY);
 
-        if(Accel_X_Direction < 1700){ //accelerometer is tilted to the left
+        if (Accel_X_Direction < 1500) {
             dir = ACCEL_LEFT;
-        }
-        else if(Accel_X_Direction > 2400){ //accelerometer is tilted right
+        } else if (Accel_X_Direction > 2500) {
             dir = ACCEL_RIGHT;
-        }
-        else{ //accelerometer is in the center
+        } else {
             dir = ACCEL_CENTER;
         }
 
-        if(dir != prev_dir){
-            // send some sort of data to the character task letting them know the character has to be moved/changed
-            //probably requires a queue
-        }
-        prev_dir = dir;
+        //now send the delay to the player
+
+         xQueueSend(Queue_Player, &dir, portMAX_DELAY);
+
+
+        //prevDir = dir;
+
+
     }
 }
 
@@ -55,5 +58,8 @@ void ADC14_IRQHandler(){
     Accel_Y_Direction = ADC14->MEM[1];
 
     vTaskNotifyGiveFromISR(Task_Accel_Handle, &xHigherPriorityTaskWoken);
+   // vTaskNotifyGiveFromISR(Task_Buzzer_Handle, &xHigherPriorityTaskWoken);
     portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
+
+
