@@ -22,10 +22,28 @@ void Task_Accelerometer_Timer(void *pvParameters){
 }
 
 void Task_Accelerometer_Bottom_Half(void *pvParameters){
+    ACCEL_DIR_t dir;
+    ACCEL_DIR_t prev_dir = ACCEL_CENTER;
     uint32_t eventOccurred;
+
     while(1){
         eventOccurred = ulTaskNotifyTake(true, portMAX_DELAY);
 
+        if(Accel_X_Direction < 1700){ //accelerometer is tilted to the left
+            dir = ACCEL_LEFT;
+        }
+        else if(Accel_X_Direction > 2400){ //accelerometer is tilted right
+            dir = ACCEL_RIGHT;
+        }
+        else{ //accelerometer is in the center
+            dir = ACCEL_CENTER;
+        }
+
+        if(dir != prev_dir){
+            // send some sort of data to the character task letting them know the character has to be moved/changed
+            //probably requires a queue
+        }
+        prev_dir = dir;
     }
 }
 

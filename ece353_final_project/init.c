@@ -16,14 +16,14 @@
 void init_board(){
 //initialize LCD
     Crystalfontz128x128_Init();
-//    lcd_draw_image(
-//            64,
-//            64,
-//            personWidthPixels,
-//            personHeightPixels,
-//            personBitmaps,
-//            LCD_COLOR_MAGENTA,
-//            LCD_COLOR_BLACK);
+    lcd_draw_image(
+            64,
+            64,
+            personWidthPixels,
+            personHeightPixels,
+            personBitmaps,
+            LCD_COLOR_MAGENTA,
+            LCD_COLOR_WHITE);
 /*Initialize Ambient Light Sensor*/
     // Initialize OPT3001
     i2c_init();

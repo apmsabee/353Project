@@ -67,7 +67,7 @@ int main(void)
             "Task_LightSensor",
             configMINIMAL_STACK_SIZE,
             NULL,
-            3,
+            2,
             &Task_LightSensor_Handle);
 
     xTaskCreate(

@@ -26,7 +26,7 @@
 #include <i2c.h>
 #include <lcd.h>
 #include <ECE353.h>
-//#include <meteor.h>
-//#include <person.h>
+#include <meteor.h>
+#include <person.h>
 
 #endif /* MAIN_H_ */
