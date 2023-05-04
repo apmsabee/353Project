@@ -1,5 +1,5 @@
 // Bitmap info for actualmeteor
 #include <main.h>
-extern const uint8_t actualmeteorBitmaps;
-extern const uint8_t actualmeteorWidthPixels;
-extern const uint8_t actualmeteorHeightPixels;
+extern const uint8_t meteorBitmaps;
+extern const uint8_t meteorWidthPixels;
+extern const uint8_t meteorHeightPixels;
